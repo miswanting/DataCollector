@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-var dbVersion = "v171007(v2)"
+var dbVersion = "v171007[2]"
 
 type DataPair struct {
 	X string

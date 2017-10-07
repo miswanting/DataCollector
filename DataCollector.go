@@ -13,7 +13,7 @@ import (
 var name = "实验数据处理程序"
 var author = "何雨航"
 var contact = "453542772@qq.com"
-var mainVersion = "v1.0.0-rc1"
+var mainVersion = "v1.0.1"
 var doc = `*介绍：
   该脚本可以将分散于多个文件的实验数据处理成方便导入到OriginLab等各种表格程序的格式。
 *使用方法：
