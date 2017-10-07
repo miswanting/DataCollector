@@ -1,4 +1,4 @@
 @echo off
 echo Building...
-go build DataCollector.go
+go build .
 pause

@@ -16,4 +16,6 @@
 # Custom
 *.txt
 *.csv
+*.json
+*.py
 debug

@@ -46,6 +46,7 @@ type Cache struct {
 }
 
 var cache Cache
+var outputMatrix [][]string
 
 func check(e error) {
 	if e != nil {
@@ -104,9 +105,19 @@ func writeCache() {
 
 }
 func analyse() {
-
+	outputMatrix = Collect(cache)
 }
 func writeOutput() {
+	var outputLines []string
+	for i := 0; i < len(outputMatrix); i++ {
+		outputLines = append(outputLines, strings.Join(outputMatrix[i], "\t"))
+	}
+	file, _ := os.OpenFile(getCurrentPath()+"output.txt", os.O_WRONLY|os.O_CREATE, 0666)
+	defer file.Close()
+	for i := 0; i < len(outputLines); i++ {
+		file.WriteString(outputLines[i])
+		file.WriteString("\r\n")
+	}
 	os.Remove(getCurrentPath() + "cache.json")
 }
 func getCurrentPath() string {
