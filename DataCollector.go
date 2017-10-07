@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math/rand"
 	"os"
 	"os/exec"
 	"path/filepath"
 	"strings"
+	"time"
 )
 
 var name = "实验数据处理程序"
@@ -67,22 +69,46 @@ func main() {
 			fmt.Println("文件列表：", os.Args[1:])
 		}
 		if cacheFileExist {
+			fmt.Println("读取缓存中……")
 			readCache()
+			time.Sleep(time.Duration(1000) * time.Millisecond)
+			fmt.Println("缓存读取完毕！")
 		}
+		fmt.Println("读取数据文件中……")
 		readFile(os.Args[1:])
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		fmt.Println("数据文件读取完毕！")
+		fmt.Println("缓存中……")
 		writeCache()
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		fmt.Println("缓存完毕！")
 	case len(os.Args) == 1 && cacheFileExist: // 输出
+		fmt.Println("读取缓存中……")
 		readCache()
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		fmt.Println("缓存读取完毕！")
+		fmt.Println("分析中……")
 		analyse()
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		fmt.Println("分析完毕！")
+		fmt.Println("导出中……")
 		writeOutput()
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+		fmt.Println("导出完毕！")
+		time.Sleep(time.Duration(1000) * time.Millisecond)
 	case len(os.Args) == 1 && !cacheFileExist: // 显示文档
 		fmt.Println(name)
+		time.Sleep(time.Duration(1000) * time.Millisecond)
 		fmt.Println()
 		fmt.Println("作者：" + author + "<" + contact + ">")
+		time.Sleep(time.Duration(1000) * time.Millisecond)
 		fmt.Println("主程序版本：" + mainVersion)
+		time.Sleep(time.Duration(1000) * time.Millisecond)
 		fmt.Println("数据库版本：" + dbVersion)
+		time.Sleep(time.Duration(1000) * time.Millisecond)
 		fmt.Println()
 		fmt.Println(doc)
+		time.Sleep(time.Duration(3000) * time.Millisecond)
 	}
 	fmt.Println("按Enter键退出程序")
 	fmt.Scanln()
@@ -96,6 +122,8 @@ func readCache() {
 func readFile(filePathList []string) {
 	// 按顺序读取单个文件
 	for i := 0; i < len(filePathList); i++ {
+		println("读取：" + filePathList[i])
+		time.Sleep(time.Duration(100+rand.Intn(400)) * time.Millisecond)
 		fileByte, err := ioutil.ReadFile(filePathList[i])
 		check(err)
 		newItem := new(Item)
@@ -125,6 +153,7 @@ func writeOutput() {
 		file.WriteString("\r\n")
 	}
 	os.Remove(getCurrentPath() + "cache.json")
+	time.Sleep(time.Duration(100+rand.Intn(400)) * time.Millisecond)
 }
 func getCurrentPath() string {
 	file, err := exec.LookPath(os.Args[0])

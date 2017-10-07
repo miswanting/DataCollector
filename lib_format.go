@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 var dbVersion = "v171007[2]"
@@ -64,6 +67,9 @@ func stdDP(cache Cache, i int, prefix string, midfix string, suffix string) { //
 	tmpName := strings.Split(cache.Data[i].Name, "\\")
 	tmpNameLen := len(tmpName)
 	tmpNameName := tmpName[tmpNameLen-1]
+	// 用户体验
+	fmt.Println("分析文件：" + tmpNameName)
+	time.Sleep(time.Duration(100+rand.Intn(400)) * time.Millisecond)
 	tmpName = strings.Split(tmpNameName, ".")
 	tmpNameLen = len(tmpName)
 	tmpNameName = strings.Join(tmpName[0:tmpNameLen-1], ".")
